@@ -9,6 +9,7 @@ use yii\widgets\Pjax;
 /** @var yii\web\View $this */
 /** @var app\models\TaskSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
+/** @var Task $tasks */
 
 $this->title = Yii::t('app', 'Tasks');
 $this->params['breadcrumbs'][] = $this->title;
@@ -46,5 +47,25 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
 
     <?php Pjax::end(); ?>
+
+    <div class="row">
+        <?php foreach ($tasks as $task): ?>
+
+            <div class="col-3 p-1">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><?= $task->taskTitle ?></h5>
+                        <h6 class="card-subtitle mb-2 text-muted"><?= $task->taskSubjectId ?> | bis <?= $task->taskDueDate ?></h6>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            <?= $task->taskDescription ?>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        <?php endforeach; ?>
+    </div>
 
 </div>
