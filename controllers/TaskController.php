@@ -41,9 +41,12 @@ class TaskController extends Controller
         $searchModel = new TaskSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
+        $tasks = Task::find()->all();
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'tasks' => $tasks
         ]);
     }
 
@@ -55,6 +58,7 @@ class TaskController extends Controller
      */
     public function actionView($taskId)
     {
+
         return $this->render('view', [
             'model' => $this->findModel($taskId),
         ]);
