@@ -51,11 +51,16 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
         <?php foreach ($tasks as $task): ?>
 
+            <?php
+                $time = strtotime($task->taskDueDate);
+                $dateFormatted = date('d.m H:i',$time);
+            ?>
+
             <div class="col-3 p-1">
                 <div class="card">
                     <div class="card-header">
                         <h5><?= $task->taskTitle ?></h5>
-                        <h6 class="card-subtitle mb-2 text-muted"><?= $task->taskSubjectId ?> | bis <?= $task->taskDueDate ?></h6>
+                        <h6 class="card-subtitle mb-2 text-muted"><?= $task->taskSubject->subjectName ?> | bis <?= $dateFormatted ?></h6>
                     </div>
                     <div class="card-body">
                         <p class="card-text">
