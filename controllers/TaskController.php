@@ -51,7 +51,6 @@ class TaskController extends Controller
             'tasks' => $tasks
         ]);
 
-        $farbe =
     }
 
     /**
