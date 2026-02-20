@@ -50,8 +50,6 @@ class TaskController extends Controller
             'dataProvider' => $dataProvider,
             'tasks' => $tasks
         ]);
-
-        $farbe =
     }
 
     /**
