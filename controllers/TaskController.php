@@ -2,8 +2,10 @@
 
 namespace app\controllers;
 
+use app\models\Subject;
 use app\models\Task;
 use app\models\TaskSearch;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -74,6 +76,8 @@ class TaskController extends Controller
     public function actionCreate()
     {
         $model = new Task();
+        $subjects = Subject::find()->all();
+        $dropdown = ArrayHelper::map($subjects, 'subjectId', "subjectName");
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -85,6 +89,7 @@ class TaskController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'dropdown' => $dropdown,
         ]);
     }
 
@@ -98,6 +103,8 @@ class TaskController extends Controller
     public function actionUpdate($taskId)
     {
         $model = $this->findModel($taskId);
+        $subjects = Subject::find()->all();
+        $dropdown = ArrayHelper::map($subjects, 'subjectId', "subjectName");
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'taskId' => $model->taskId]);
@@ -105,6 +112,7 @@ class TaskController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'dropdown' => $dropdown,
         ]);
     }
 
