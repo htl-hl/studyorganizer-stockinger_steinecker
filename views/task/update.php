@@ -4,6 +4,7 @@ use yii\helpers\Html;
 
 /** @var yii\web\View $this */
 /** @var app\models\Task $model */
+/** @var $dropdown */
 
 $this->title = Yii::t('app', 'Update Task: {name}', [
     'name' => $model->taskId,
@@ -18,6 +19,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
     <?= $this->render('_form', [
         'model' => $model,
+        'dropdown' => $dropdown,
     ]) ?>
 
 </div>
