@@ -6,6 +6,7 @@ use yii\widgets\ActiveForm;
 /** @var yii\web\View $this */
 /** @var app\models\Task $model */
 /** @var yii\widgets\ActiveForm $form */
+/** @var array $dropdown */
 ?>
 
 <div class="task-form">
@@ -20,7 +21,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'taskOwnerId')->textInput() ?>
 
-    <?= $form->field($model, 'taskSubjectId')->textInput() ?>
+    <?= $form->field($model, 'taskSubjectId')->dropDownList($dropdown) ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
