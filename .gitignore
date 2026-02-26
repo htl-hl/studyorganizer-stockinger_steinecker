@@ -1,4 +1,5 @@
 runtime
+.bowerrc
 
 # phpstorm project files
 .idea
