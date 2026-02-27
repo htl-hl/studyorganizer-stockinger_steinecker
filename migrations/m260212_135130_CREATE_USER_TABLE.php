@@ -14,11 +14,13 @@ class m260212_135130_CREATE_USER_TABLE extends Migration
     {
         $this->createTable('{{%USER}}', [
             'id' => $this->primaryKey(),
+            'email' => $this->string(64)->notNull()->unique(),
             'username' => $this->string(16)->notNull()->unique(),
             'password' => $this->string()->notNull(),
             'authKey' => $this->string()->notNull(),
             'accessToken' => $this->string()->notNull(),
             'role' => $this->string()->notNull()->defaultValue('User'),
+            'verificationCode' => $this->integer(),
         ]);
     }
 
