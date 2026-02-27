@@ -10,11 +10,12 @@ class m260227_075310_ADD_ADMIN_USER extends Migration
     public function safeUp()
     {
         $this->insert('{{%USER}}', [
+            'email' => 'admin',
             'username' => 'admin',
             'password' => Yii::$app->getSecurity()->generatePasswordHash('admin'),
             'authKey' => Yii::$app->getSecurity()->generateRandomString(),
             'accessToken' => Yii::$app->getSecurity()->generateRandomString(),
-            'role' => 'Admin',
+            'role' => 'admin',
         ]);
     }
 

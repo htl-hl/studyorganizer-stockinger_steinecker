@@ -10,11 +10,12 @@ class m260212_135151_ADD_USER extends Migration
     public function safeUp()
     {
         $this->insert('{{%USER}}', [
+            'email' => 'einfach',
             'username' => 'einfach',
             'password' => Yii::$app->getSecurity()->generatePasswordHash('einfach'),
             'authKey' => Yii::$app->getSecurity()->generateRandomString(),
             'accessToken' => Yii::$app->getSecurity()->generateRandomString(),
-            'role' => 'User',
+            'role' => 'user',
         ]);
     }
 
