@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\RegisterForm;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -124,5 +125,19 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    public function actionRegister()
+    {
+        $model = new RegisterForm();
+        try {
+            if ($model->load(Yii::$app->request->post()) && $model->register()) {
+                return $this->redirect(['site/login']);
+            }
+        } catch (\Exception $e) {
+            $newMessage = explode('The SQL being executed was:', $e->getMessage())[0];
+            Yii::$app->session->setFlash('error', $newMessage);
+        }
+        return $this->render('register', ['regModel' => $model]);
     }
 }
