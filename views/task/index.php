@@ -21,33 +21,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a(Yii::t('app', 'Create Task'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-
-    <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'taskId',
-            'taskTitle',
-            'taskDescription:ntext',
-            'taskDueDate',
-            'taskOwnerId',
-            //'taskSubjectId',
-            [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Task $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'taskId' => $model->taskId]);
-                 }
-            ],
-        ],
-    ]); ?>
-
-    <?php Pjax::end(); ?>
-
     <div class="row">
         <?php foreach ($tasks as $task): ?>
 
