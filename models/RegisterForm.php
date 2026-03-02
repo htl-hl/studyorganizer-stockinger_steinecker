@@ -27,7 +27,7 @@ class RegisterForm extends Model
     {
         return [
             // username and password are both required
-            [['username', 'password'], 'required'],
+            [['username', 'email', 'password'], 'required'],
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
@@ -62,6 +62,7 @@ class RegisterForm extends Model
 
         $user = new User();
         $user->username = $this->username;
+        $user->email = $this->email;
         $user->password = \Yii::$app->security->generatePasswordHash($this->password);
         $user->authKey = \Yii::$app->security->generateRandomString();
         $user->accessToken = \Yii::$app->security->generateRandomString();
