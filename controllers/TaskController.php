@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\Subject;
 use app\models\Task;
 use app\models\TaskSearch;
+use Yii;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -80,8 +81,11 @@ class TaskController extends Controller
         $dropdown = ArrayHelper::map($subjects, 'subjectId', "subjectName");
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'taskId' => $model->taskId]);
+            if ($model->load($this->request->post())) {
+                $model->taskOwnerId = Yii::$app->user->id;
+                if ($model->save()) {
+                    return $this->redirect(['view', 'taskId' => $model->taskId]);
+                }
             }
         } else {
             $model->loadDefaultValues();
