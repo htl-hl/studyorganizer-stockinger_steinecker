@@ -38,7 +38,7 @@ class Task extends \yii\db\ActiveRecord
             [['taskDescription', 'taskDueDate'], 'default', 'value' => null],
             [['taskTitle', 'taskOwnerId', 'taskSubjectId'], 'required'],
             [['taskDescription'], 'string'],
-            [['taskDueDate'], 'safe'],
+            [['taskDueDate'], 'required'],
             [['taskOwnerId', 'taskSubjectId'], 'integer'],
             [['taskTitle'], 'string', 'max' => 255],
             [['taskOwnerId'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['taskOwnerId' => 'id']],
