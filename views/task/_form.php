@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\jui\DatePicker;
 
 /** @var yii\web\View $this */
 /** @var app\models\Task $model */
@@ -17,9 +18,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'taskDescription')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'taskDueDate')->textInput() ?>
-
-    <?= $form->field($model, 'taskOwnerId')->textInput() ?>
+    <?= $form->field($model, 'taskDueDate')->widget(DatePicker::class, [
+        'language' => 'de',
+        'dateFormat' => 'yyyy-MM-dd',
+        'options' => ['class' => 'form-control']
+    ]) ?>
 
     <?= $form->field($model, 'taskSubjectId')->dropDownList($dropdown) ?>
 
