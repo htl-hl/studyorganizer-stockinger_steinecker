@@ -16,7 +16,7 @@ class m260213_075248_CREATE_TASK_TABLE extends Migration
             'taskId' => $this->primaryKey(),
             'taskTitle' => $this->string()->notNull(),
             'taskDescription' => $this->text(),
-            'taskDueDate' => $this->date(),
+            'taskDueDate' => $this->date()->notNull(),
             'taskOwnerId' => $this->integer()->notNull(),
             'taskSubjectId' => $this->integer()->notNull()
         ]);
