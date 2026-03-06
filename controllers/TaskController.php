@@ -41,12 +41,18 @@ class TaskController extends Controller
      */
     public function actionIndex()
     {
+        // Redirect to login if user is a guest
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['site/login']);
+        }
+
         $searchModel = new TaskSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
+
         $tasks = Task::find()
             ->joinWith("taskSubject")
-            ->where(['taskId' => Yii::$app->user->identity->getId()])
+            ->where(['taskOwnerId' => Yii::$app->user->identity->getId()])
             ->all();
 
         return $this->render('index', [

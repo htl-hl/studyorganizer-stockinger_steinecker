@@ -39,15 +39,12 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 
     $isAdmin = !Yii::$app->user->isGuest && Yii::$app->user->identity->role === 'admin';
     $items = [
-        ['label' => 'Home', 'url' => ['/site/index']],
     ];
 
     if ($isAdmin) {
         $items[] = ['label' => 'Subjects', 'url' => ['/subject/index']];
         $items[] = ['label' => 'Teachers', 'url' => ['/teacher/index']];
     }
-
-    $items[] = ['label' => 'Tasks', 'url' => ['/task/index']];
 
     $items[] = Yii::$app->user->isGuest
         ? ['label' => 'Login', 'url' => ['/site/login']]
