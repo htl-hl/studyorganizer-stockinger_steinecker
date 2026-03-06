@@ -46,6 +46,7 @@ class TaskController extends Controller
 
         $tasks = Task::find()
             ->joinWith("taskSubject")
+            ->where(['taskId' => Yii::$app->user->identity->getId()])
             ->all();
 
         return $this->render('index', [
