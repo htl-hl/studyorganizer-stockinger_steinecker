@@ -14,7 +14,16 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'teacherName')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'active')->textInput() ?>
+    <?= $form->field($model, 'active', [
+        'options' => ['class' => 'form-check form-switch mb-3'],
+        'template' => "{input}\n{label}\n{error}",
+        'labelOptions' => ['class' => 'form-check-label'],
+    ])->checkbox([
+        'class' => 'form-check-input',
+        'role' => 'switch',
+        'value' => 1,
+        'uncheck' => 0,
+    ], false) ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
