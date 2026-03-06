@@ -30,7 +30,7 @@ class Teacher extends \yii\db\ActiveRecord
     {
         return [
             [['teacherName', 'active'], 'required'],
-            [['active'], 'integer'],
+            [['active'], 'boolean'],
             [['teacherName'], 'string', 'max' => 255],
         ];
     }
