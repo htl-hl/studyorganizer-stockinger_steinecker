@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="card h-100">
                     <div class="card-header bg-<?= $colour ?>"></div>
                     <div class="card-header">
-                        <h5><?= $task->taskTitle ?>
+                        <h5> <?= Html::a($task->taskTitle, ['task/view', 'taskId' => $task->taskId], ['class' => 'text-decoration-none']) ?>
                             <?= \yii\bootstrap5\Html::a(Task::doneIcon(),
                                     Url::to(["task/delete", "taskId" => $task->taskId]),
                                     ["class" => "btn float-end",
@@ -64,7 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <h6 class="card-subtitle mb-2 text-muted"><?= $task->taskSubject->subjectName ?> | bis <?= $date_formatted ?></h6>
                     </div>
                     <div class="card-body">
-                        <p class="card-text">
+                        <p class="card-text text-truncate">
                             <?= $task->taskDescription ?>
                         </p>
                     </div>
