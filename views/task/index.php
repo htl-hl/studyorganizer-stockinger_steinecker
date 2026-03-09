@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?php
                 $time = strtotime($task->taskDueDate);
-                $date_formatted = date('d.m H:i',$time);
+                $date_formatted = date('d.m.Y',$time);
                 $now = time();
                 $remaining = max($time - $now, 0);
                 $remaining_days = $remaining / 86400;
