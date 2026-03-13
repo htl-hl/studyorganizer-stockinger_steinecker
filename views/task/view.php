@@ -16,14 +16,22 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Edit'), ['update', 'taskId' => $model->taskId], ['class' => 'btn btn-primary btn-sm']) ?>
-        <?= Html::a(Yii::t('app', 'Done'), ['delete', 'taskId' => $model->taskId], [
-            'class' => 'btn btn-danger btn-sm',
-            'data' => [
-                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                'method' => 'post',
-            ],
-        ]) ?>
+        <?php if ($model->isDone): ?>
+            <span class="btn btn-secondary btn-sm disabled"><?= Yii::t('app', 'Edit') ?></span>
+        <?php else: ?>
+            <?= Html::a(Yii::t('app', 'Edit'), ['update', 'taskId' => $model->taskId], ['class' => 'btn btn-primary btn-sm']) ?>
+        <?php endif; ?>
+        <?php if ($model->isDone): ?>
+            <span class="btn btn-success btn-sm disabled"><?= Yii::t('app', 'Done') ?></span>
+        <?php else: ?>
+            <?= Html::a(Yii::t('app', 'Done'), ['done', 'taskId' => $model->taskId], [
+                'class' => 'btn btn-success btn-sm',
+                'data' => [
+                    'confirm' => Yii::t('app', 'Mark this task as done?'),
+                    'method' => 'post',
+                ],
+            ]) ?>
+        <?php endif; ?>
     </p>
 
     <div class="card">

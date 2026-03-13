@@ -13,6 +13,7 @@ use Yii;
  * @property string|null $taskDueDate
  * @property int $taskOwnerId
  * @property int $taskSubjectId
+ * @property int $isDone
  *
  * @property User $taskOwner
  * @property Subject $taskSubject
@@ -36,10 +37,12 @@ class Task extends \yii\db\ActiveRecord
     {
         return [
             [['taskDescription', 'taskDueDate'], 'default', 'value' => null],
+            [['isDone'], 'default', 'value' => false],
             [['taskTitle', 'taskOwnerId', 'taskSubjectId'], 'required'],
             [['taskDescription'], 'string'],
             [['taskDueDate'], 'required'],
             [['taskOwnerId', 'taskSubjectId'], 'integer'],
+            [['isDone'], 'boolean'],
             [['taskTitle'], 'string', 'max' => 255],
             [['taskOwnerId'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['taskOwnerId' => 'id']],
             [['taskSubjectId'], 'exist', 'skipOnError' => true, 'targetClass' => Subject::class, 'targetAttribute' => ['taskSubjectId' => 'subjectId']],
@@ -58,6 +61,7 @@ class Task extends \yii\db\ActiveRecord
             'taskDueDate' => Yii::t('app', 'Task Due Date'),
             'taskOwnerId' => Yii::t('app', 'Task Owner ID'),
             'taskSubjectId' => Yii::t('app', 'Task Subject ID'),
+            'isDone' => Yii::t('app', 'Task Done'),
         ];
     }
 

@@ -8,6 +8,7 @@ use app\models\TaskSearch;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
+use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -27,7 +28,7 @@ class TaskController extends Controller
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [
-                        'delete' => ['POST'],
+                        'done' => ['POST'],
                     ],
                 ],
             ]
@@ -114,6 +115,9 @@ class TaskController extends Controller
     public function actionUpdate($taskId)
     {
         $model = $this->findModel($taskId);
+        if ($model->isDone) {
+            throw new ForbiddenHttpException(Yii::t('app', 'Completed tasks cannot be edited.'));
+        }
         $subjects = Subject::find()->all();
         $dropdown = ArrayHelper::map($subjects, 'subjectId', "subjectName");
 
@@ -128,15 +132,19 @@ class TaskController extends Controller
     }
 
     /**
-     * Deletes an existing Task model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * Marks an existing Task model as done.
+     * If saving is successful, the browser will be redirected to the 'index' page.
      * @param int $taskId Task ID
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($taskId)
+    public function actionDone($taskId)
     {
-        $this->findModel($taskId)->delete();
+        $model = $this->findModel($taskId);
+        if (!$model->isDone) {
+            $model->isDone = 1;
+            $model->save(false, ['isDone']);
+        }
 
         return $this->redirect(['index']);
     }
