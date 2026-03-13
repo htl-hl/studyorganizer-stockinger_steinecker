@@ -18,7 +18,8 @@ class m260213_075248_CREATE_TASK_TABLE extends Migration
             'taskDescription' => $this->text(),
             'taskDueDate' => $this->date()->notNull(),
             'taskOwnerId' => $this->integer()->notNull(),
-            'taskSubjectId' => $this->integer()->notNull()
+            'taskSubjectId' => $this->integer()->notNull(),
+            'isDone' => $this->boolean()->notNull()->defaultValue(false)
         ]);
 
         $this->addForeignKey(

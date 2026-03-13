@@ -30,6 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 $now = time();
                 $remaining = max($time - $now, 0);
                 $remaining_days = $remaining / 86400;
+                $is_done = (bool)$task->isDone;
 
                 $colours = array();
                 $colours[14] = "primary";
@@ -38,28 +39,40 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 $colour = "secondary";
 
-                foreach ($colours as $threshold => $colour_option) {
-                    if ($threshold >= $remaining_days) {
-                        $colour = $colour_option;
+                if (!$is_done) {
+                    foreach ($colours as $threshold => $colour_option) {
+                        if ($threshold >= $remaining_days) {
+                            $colour = $colour_option;
+                        }
                     }
+                } else {
+                    $colour = "success";
                 }
             ?>
 
             <div class="col-lg-4 col-md-6 col-sm-12 p-2">
-                <div class="card h-100">
+                <div class="card h-100<?= $is_done ? ' border-success' : '' ?>">
                     <div class="card-header bg-<?= $colour ?>"></div>
                     <div class="card-header">
                         <h5> <?= Html::a($task->taskTitle, ['task/view', 'taskId' => $task->taskId], ['class' => 'text-decoration-none']) ?>
-                            <?= \yii\bootstrap5\Html::a(Task::doneIcon(),
-                                    Url::to(["task/delete", "taskId" => $task->taskId]),
-                                    ["class" => "btn float-end",
-                                            "data-method" => "POST",
-                                            "data-confirm" => "Are you sure?"])
-                            ?>
-                            <?= \yii\bootstrap5\Html::a(Task::updateIcon(),
-                                    Url::to(["task/update", "taskId" => $task->taskId]),
-                                    ["class" => "btn float-end"])
-                            ?>
+                            <?php if ($is_done): ?>
+                                <span class="btn float-end text-success"><?= Task::doneIcon() ?></span>
+                            <?php else: ?>
+                                <?= \yii\bootstrap5\Html::a(Task::doneIcon(),
+                                        Url::to(["task/done", "taskId" => $task->taskId]),
+                                        ["class" => "btn float-end",
+                                                "data-method" => "POST",
+                                                "data-confirm" => "Mark this task as done?"])
+                                ?>
+                            <?php endif; ?>
+                            <?php if ($is_done): ?>
+                                <span class="btn float-end text-muted"><?= Task::updateIcon() ?></span>
+                            <?php else: ?>
+                                <?= \yii\bootstrap5\Html::a(Task::updateIcon(),
+                                        Url::to(["task/update", "taskId" => $task->taskId]),
+                                        ["class" => "btn float-end"])
+                                ?>
+                            <?php endif; ?>
                             <button class="btn float-end"></button><button class="btn float-end"></button></h5>
                         <h6 class="card-subtitle mb-2 text-muted"><?= $task->taskSubject->subjectName ?> | bis <?= $date_formatted ?></h6>
                     </div>
