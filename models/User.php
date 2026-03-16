@@ -77,4 +77,8 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     {
         return \Yii::$app->getSecurity()->validatePassword($password, $this->password);
     }
+    public function isVerified()
+    {
+        return $this->verificationCode === null;
+    }
 }
