@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\RegisterForm;
+use app\models\VerifyForm;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -139,5 +140,19 @@ class SiteController extends Controller
             Yii::$app->session->setFlash('error', $newMessage);
         }
         return $this->render('register', ['regModel' => $model]);
+    }
+
+    public function actionVerify()
+    {
+        $model = new VerifyForm();
+        try {
+            if ($model->load(Yii::$app->request->post()) && $model->verify()) {
+                return $this->redirect(['task/index']);
+            }
+        } catch (\Exception $e) {
+            $newMessage = explode('The SQL being executed was:', $e->getMessage())[0];
+            Yii::$app->session->setFlash('error', $newMessage);
+        }
+        return $this->render('verify', ['verModel' => $model]);
     }
 }
