@@ -13,25 +13,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="task-view">
 
-
-    <!--
-    <?php
-
-    echo '<pre>'.print_r("Test1",TRUE).'</pre>';
-
-    $sent = Yii::$app->mailer->compose()
-            ->setFrom('jonathan.steinecker@proton.me')
-            ->setTo("jonathan.steinecker@proton.me")
-            ->setSubject('Test Subject')
-            ->setTextBody('Test Inhalt')
-            ->send();
-
-    echo '<pre>'.print_r($sent,TRUE).'</pre>';
-
-    ?>
-    -->
-
-
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>

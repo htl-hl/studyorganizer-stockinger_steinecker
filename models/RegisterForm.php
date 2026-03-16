@@ -59,6 +59,11 @@ class RegisterForm extends Model
      */
     public function register()
     {
+        if (!str_ends_with($this->email, "htl-hl.ac.at")) {
+            return false;
+        }
+
+        $verificationCode = rand(100000,999999);
 
         $user = new User();
         $user->username = $this->username;
@@ -67,7 +72,15 @@ class RegisterForm extends Model
         $user->authKey = \Yii::$app->security->generateRandomString();
         $user->accessToken = \Yii::$app->security->generateRandomString();
         $user->role = 'User';
+        $user->verificationCode = $verificationCode;
         $user->save();
+
+        Yii::$app->mailer->compose()
+            ->setFrom('studyorganizer@studyorg.com')
+            ->setTo($this->email)
+            ->setSubject('Studyorganizer verification')
+            ->setTextBody('Welcome to studyorganizer! Your verification code is ' . $verificationCode)
+            ->send();
 
         return true;
     }

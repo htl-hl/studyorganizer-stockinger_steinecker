@@ -1,6 +1,5 @@
 runtime
 .bowerrc
-config/mail.php
 
 # phpstorm project files
 .idea

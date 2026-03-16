@@ -27,7 +27,7 @@ $config = [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        //'mailer' => require __DIR__ . '/mail.php',
+        'mailer' => require __DIR__ . '/mail.php',
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
