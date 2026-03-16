@@ -29,6 +29,7 @@ class Teacher extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['active'], 'default', 'value' => true],
             [['teacherName', 'active'], 'required'],
             [['active'], 'boolean'],
             [['teacherName'], 'string', 'max' => 255],

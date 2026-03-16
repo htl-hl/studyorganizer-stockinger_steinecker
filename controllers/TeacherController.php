@@ -88,7 +88,7 @@ class TeacherController extends Controller
                 return $this->redirect(['view', 'teacherId' => $model->teacherId]);
             }
         } else {
-            $model->loadDefaultValues();
+            $model->active = true;
         }
 
         return $this->render('create', [
