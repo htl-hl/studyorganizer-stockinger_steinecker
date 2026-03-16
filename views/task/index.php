@@ -76,9 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 "data-confirm" => "Mark this task as done?"])
                                 ?>
                             <?php endif; ?>
-                            <?php if ($is_done): ?>
-                                <span class="btn float-end text-muted"><?= Task::updateIcon() ?></span>
-                            <?php else: ?>
+                            <?php if (!$is_done): ?>
                                 <?= \yii\bootstrap5\Html::a(Task::updateIcon(),
                                         Url::to(["task/update", "taskId" => $task->taskId]),
                                         ["class" => "btn float-end"])
@@ -143,9 +141,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 "data-confirm" => "Mark this task as done?"])
                                 ?>
                             <?php endif; ?>
-                            <?php if ($is_done): ?>
-                                <span class="btn float-end text-muted"><?= Task::updateIcon() ?></span>
-                            <?php else: ?>
+                            <?php if (!$is_done): ?>
                                 <?= \yii\bootstrap5\Html::a(Task::updateIcon(),
                                         Url::to(["task/update", "taskId" => $task->taskId]),
                                         ["class" => "btn float-end"])
