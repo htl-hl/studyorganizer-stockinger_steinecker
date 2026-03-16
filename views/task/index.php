@@ -85,7 +85,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ?>
                             <?php endif; ?>
                             <button class="btn float-end"></button><button class="btn float-end"></button></h5>
-                        <h6 class="card-subtitle mb-2 text-muted"><?= $task->taskSubject->subjectName ?> | bis <?= $date_formatted ?></h6>
+                        <h6 class="card-subtitle mb-2 text-muted"><?= $task->taskSubject->subjectName ?> | bis <?= $date_formatted ?> | <?= $task->taskTeacher->teacherName ?></h6>
                     </div>
                     <div class="card-body">
                         <p class="card-text text-truncate">
@@ -152,7 +152,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ?>
                             <?php endif; ?>
                             <button class="btn float-end"></button><button class="btn float-end"></button></h5>
-                        <h6 class="card-subtitle mb-2 text-muted"><?= $task->taskSubject->subjectName ?> | bis <?= $date_formatted ?></h6>
+                        <h6 class="card-subtitle mb-2 text-muted"><?= $task->taskSubject->subjectName ?> | bis <?= $date_formatted ?> | <?= $task->taskTeacher->teacherName ?></h6>
                     </div>
                     <div class="card-body">
                         <p class="card-text text-truncate">

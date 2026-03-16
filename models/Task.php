@@ -13,10 +13,12 @@ use Yii;
  * @property string|null $taskDueDate
  * @property int $taskOwnerId
  * @property int $taskSubjectId
+ * @property int $taskTeacherId
  * @property int $isDone
  *
  * @property User $taskOwner
  * @property Subject $taskSubject
+ * @property Teacher $taskTeacher
  */
 class Task extends \yii\db\ActiveRecord
 {
@@ -41,11 +43,12 @@ class Task extends \yii\db\ActiveRecord
             [['taskTitle', 'taskOwnerId', 'taskSubjectId', 'taskTeacherId'], 'required'],
             [['taskDescription'], 'string'],
             [['taskDueDate'], 'required'],
-            [['taskOwnerId', 'taskSubjectId'], 'integer'],
+            [['taskOwnerId', 'taskSubjectId', 'taskTeacherId'], 'integer'],
             [['isDone'], 'boolean'],
             [['taskTitle'], 'string', 'max' => 255],
             [['taskOwnerId'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['taskOwnerId' => 'id']],
             [['taskSubjectId'], 'exist', 'skipOnError' => true, 'targetClass' => Subject::class, 'targetAttribute' => ['taskSubjectId' => 'subjectId']],
+            [['taskTeacherId'], 'exist', 'skipOnError' => true, 'targetClass' => Teacher::class, 'targetAttribute' => ['taskTeacherId' => 'teacherId']],
         ];
     }
 
@@ -83,6 +86,16 @@ class Task extends \yii\db\ActiveRecord
     public function getTaskSubject()
     {
         return $this->hasOne(Subject::class, ['subjectId' => 'taskSubjectId']);
+    }
+
+    /**
+     * Gets query for [[TaskTeacher]].
+     *
+     * @return \yii\db\ActiveQuery|TEACHERQuery
+     */
+    public function getTaskTeacher()
+    {
+        return $this->hasOne(Teacher::class, ['teacherId' => 'taskTeacherId']);
     }
 
     /**
