@@ -77,16 +77,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 "data-confirm" => "Mark this task as done?"])
                                 ?>
                             <?php endif; ?>
-                            <?php if ($is_done): ?>
-                                <span class="btn float-end text-muted"><?= Task::updateIcon() ?></span>
-                            <?php else: ?>
+                            <?php if (!$is_done): ?>
                                 <?= \yii\bootstrap5\Html::a(Task::updateIcon(),
                                         Url::to(["task/update", "taskId" => $task->taskId]),
                                         ["class" => "btn float-end"])
                                 ?>
                             <?php endif; ?>
                             <button class="btn float-end"></button><button class="btn float-end"></button></h5>
-                        <h6 class="card-subtitle mb-2 text-muted"><?= $task->taskSubject->subjectName ?> | bis <?= $date_formatted ?></h6>
+                        <h6 class="card-subtitle mb-2 text-muted"><?= $task->taskSubject->subjectName ?> | bis <?= $date_formatted ?> | <?= $task->taskTeacher->teacherName ?></h6>
                     </div>
                     <div class="card-body">
                         <p class="card-text text-truncate">
@@ -144,16 +142,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 "data-confirm" => "Mark this task as done?"])
                                 ?>
                             <?php endif; ?>
-                            <?php if ($is_done): ?>
-                                <span class="btn float-end text-muted"><?= Task::updateIcon() ?></span>
-                            <?php else: ?>
+                            <?php if (!$is_done): ?>
                                 <?= \yii\bootstrap5\Html::a(Task::updateIcon(),
                                         Url::to(["task/update", "taskId" => $task->taskId]),
                                         ["class" => "btn float-end"])
                                 ?>
                             <?php endif; ?>
                             <button class="btn float-end"></button><button class="btn float-end"></button></h5>
-                        <h6 class="card-subtitle mb-2 text-muted"><?= $task->taskSubject->subjectName ?> | bis <?= $date_formatted ?></h6>
+                        <h6 class="card-subtitle mb-2 text-muted"><?= $task->taskSubject->subjectName ?> | bis <?= $date_formatted ?> | <?= $task->taskTeacher->teacherName ?></h6>
                     </div>
                     <div class="card-body">
                         <p class="card-text text-truncate">

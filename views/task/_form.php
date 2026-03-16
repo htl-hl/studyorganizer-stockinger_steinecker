@@ -8,6 +8,7 @@ use yii\jui\DatePicker;
 /** @var app\models\Task $model */
 /** @var yii\widgets\ActiveForm $form */
 /** @var array $dropdown */
+/** @var array $teacherDropdown */
 ?>
 
 <div class="task-form">
@@ -25,6 +26,7 @@ use yii\jui\DatePicker;
     ]) ?>
 
     <?= $form->field($model, 'taskSubjectId')->dropDownList($dropdown) ?>
+    <?= $form->field($model, 'taskTeacherId')->dropDownList($teacherDropdown) ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
