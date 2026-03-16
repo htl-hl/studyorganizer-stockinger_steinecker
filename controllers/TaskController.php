@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\Subject;
 use app\models\Task;
 use app\models\TaskSearch;
+use app\models\Teacher;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
@@ -86,7 +87,9 @@ class TaskController extends Controller
     {
         $model = new Task();
         $subjects = Subject::find()->all();
-        $dropdown = ArrayHelper::map($subjects, 'subjectId', "subjectName");
+        $teachers = Teacher::find()->all();
+        $dropdown = ArrayHelper::map($subjects, 'subjectId', 'subjectName');
+        $teacherDropdown = ArrayHelper::map($teachers, 'teacherId', 'teacherName');
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
@@ -102,6 +105,7 @@ class TaskController extends Controller
         return $this->render('create', [
             'model' => $model,
             'dropdown' => $dropdown,
+            'teacherDropdown' => $teacherDropdown
         ]);
     }
 
@@ -119,7 +123,9 @@ class TaskController extends Controller
             throw new ForbiddenHttpException(Yii::t('app', 'Completed tasks cannot be edited.'));
         }
         $subjects = Subject::find()->all();
+        $teachers = Teacher::find()->all();
         $dropdown = ArrayHelper::map($subjects, 'subjectId', "subjectName");
+        $teacherDropdown = ArrayHelper::map($teachers, 'teacherId', 'teacherName');
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'taskId' => $model->taskId]);
@@ -128,6 +134,7 @@ class TaskController extends Controller
         return $this->render('update', [
             'model' => $model,
             'dropdown' => $dropdown,
+            'teacherDropdown' => $teacherDropdown,
         ]);
     }
 

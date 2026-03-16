@@ -19,7 +19,8 @@ class m260213_075248_CREATE_TASK_TABLE extends Migration
             'taskDueDate' => $this->date()->notNull(),
             'taskOwnerId' => $this->integer()->notNull(),
             'taskSubjectId' => $this->integer()->notNull(),
-            'isDone' => $this->boolean()->notNull()->defaultValue(false)
+            'isDone' => $this->boolean()->notNull()->defaultValue(false),
+            'taskTeacherId' => $this->integer()->notNull()
         ]);
 
         $this->addForeignKey(
@@ -37,6 +38,15 @@ class m260213_075248_CREATE_TASK_TABLE extends Migration
             'taskSubjectId',
             '{{%SUBJECT}}',
             'subjectId',
+            'CASCADE'
+        );
+
+        $this->addForeignKey(
+            'foreignTaskTeacherId',
+            '{{%TASK}}',
+            'taskTeacherId',
+            '{{%TEACHER}}',
+            'teacherId',
             'CASCADE'
         );
     }
