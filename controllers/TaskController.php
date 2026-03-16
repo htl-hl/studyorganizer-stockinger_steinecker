@@ -43,18 +43,15 @@ class TaskController extends Controller
      */
     public function actionIndex()
     {
-        // Redirect to login if user is a guest
         if (Yii::$app->user->isGuest) {
             return $this->redirect(['site/login']);
         }
-
-        if(!Yii::$app->user->identity->isVerified()) {
-
+        if (!Yii::$app->user->identity->isVerified()) {
+            return $this->redirect(['site/verify']);
         }
 
         $searchModel = new TaskSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
-
 
         $tasks = Task::find()
             ->joinWith("taskSubject")
@@ -76,9 +73,21 @@ class TaskController extends Controller
      */
     public function actionView($taskId)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['site/login']);
+        }
+        if (!Yii::$app->user->identity->isVerified()) {
+            return $this->redirect(['site/verify']);
+        }
+
+        $taskModel = $this->findModel($taskId);
+
+        if (Yii::$app->user->identity->getId() != $taskModel->taskOwnerId) {
+            return $this->redirect(['task/index']);
+        }
 
         return $this->render('view', [
-            'model' => $this->findModel($taskId),
+            'model' => $taskModel,
         ]);
     }
 
@@ -89,6 +98,13 @@ class TaskController extends Controller
      */
     public function actionCreate()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['site/login']);
+        }
+        if (!Yii::$app->user->identity->isVerified()) {
+            return $this->redirect(['site/verify']);
+        }
+
         $model = new Task();
         $subjects = Subject::find()->all();
         $teachers = Teacher::find()->all();
@@ -122,7 +138,17 @@ class TaskController extends Controller
      */
     public function actionUpdate($taskId)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['site/login']);
+        }
+        if (!Yii::$app->user->identity->isVerified()) {
+            return $this->redirect(['site/verify']);
+        }
+
         $model = $this->findModel($taskId);
+        if (Yii::$app->user->identity->getId() != $model->taskOwnerId) {
+            return $this->redirect(['task/index']);
+        }
         if ($model->isDone) {
             throw new ForbiddenHttpException(Yii::t('app', 'Completed tasks cannot be edited.'));
         }
@@ -152,6 +178,10 @@ class TaskController extends Controller
     public function actionDone($taskId)
     {
         $model = $this->findModel($taskId);
+        if (Yii::$app->user->identity->getId() != $model->taskOwnerId) {
+            return $this->redirect(['task/index']);
+        }
+
         if (!$model->isDone) {
             $model->isDone = 1;
             $model->save(false, ['isDone']);

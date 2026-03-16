@@ -2,7 +2,6 @@
 
 /** @var yii\web\View $this */
 /** @var yii\bootstrap5\ActiveForm $form */
-
 /** @var app\models\VerifyForm $verModel */
 
 use yii\bootstrap5\ActiveForm;
@@ -13,7 +12,7 @@ $this->title = 'Verify';
 <div class="site-verify">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please enter your six digit verification code</p>
+    <p>Please enter your six digit verification code sent to you by email</p>
 
     <div class="row">
         <div class="col-lg-5">
@@ -28,9 +27,9 @@ $this->title = 'Verify';
                 ],
             ]); ?>
 
-            <?= $form->field($verModel, 'verificationCode')->textInput(['autofocus' => true]) ?>
+            <?= $form->field($verModel, 'email')->textInput(['readonly' => true]) ?>
 
-            <?= $form->field($verModel, 'email')->textInput() ?>
+            <?= $form->field($verModel, 'verificationCode')->textInput(['autofocus' => true]) ?>
 
             <div class="form-group">
                 <div>

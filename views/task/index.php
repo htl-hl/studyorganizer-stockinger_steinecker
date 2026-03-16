@@ -84,8 +84,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ?>
                             <?php endif; ?>
                             <button class="btn float-end"></button><button class="btn float-end"></button></h5>
-                        <h6 class="card-subtitle mb-2 text-muted"><?= $task->taskSubject->subjectName ?> | bis <?= $date_formatted ?> | <?= $task->taskTeacher->teacherName ?></h6>
-                    </div>
+                        <h6 class="card-subtitle mb-2 text-muted"><?= Html::encode($task->taskSubject->subjectName) ?>, <?= Html::encode($task->taskTeacher->teacherName) ?> | bis <?= Html::encode($date_formatted) ?></h6>                    </div>
                     <div class="card-body">
                         <p class="card-text text-truncate">
                             <?= $task->taskDescription ?>
@@ -97,7 +96,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
     <hr>
-    <h1>Done Tasks</h1>
+    <h1>Completed Tasks</h1>
     <div class="row">
         <?php foreach ($doneTasks as $task): ?>
 
@@ -149,7 +148,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ?>
                             <?php endif; ?>
                             <button class="btn float-end"></button><button class="btn float-end"></button></h5>
-                        <h6 class="card-subtitle mb-2 text-muted"><?= $task->taskSubject->subjectName ?> | bis <?= $date_formatted ?> | <?= $task->taskTeacher->teacherName ?></h6>
+                        <h6 class="card-subtitle mb-2 text-muted"><?= Html::encode($task->taskSubject->subjectName) ?>, <?= Html::encode($task->taskTeacher->teacherName) ?> | bis <?= Html::encode($date_formatted) ?></h6>
                     </div>
                     <div class="card-body">
                         <p class="card-text text-truncate">

@@ -54,6 +54,7 @@ class RegisterForm extends Model
     public function register()
     {
         if (!str_ends_with($this->email, "htl-hl.ac.at")) {
+            Yii::$app->session->setFlash('error', 'Your email needs to be from Htl Hollabrunn');
             return false;
         }
 
