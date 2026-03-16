@@ -47,6 +47,10 @@ class TaskController extends Controller
             return $this->redirect(['site/login']);
         }
 
+        if(!Yii::$app->user->identity->isVerified()) {
+
+        }
+
         $searchModel = new TaskSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 

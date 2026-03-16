@@ -7,18 +7,12 @@ use yii\base\Model;
 
 /**
  * RegisterForm is the model behind the register form.
- *
- * @property-read User|null $user
- *
  */
 class RegisterForm extends Model
 {
     public $username;
     public $email;
     public $password;
-
-    private $_user = false;
-
 
     /**
      * @return array the validation rules.

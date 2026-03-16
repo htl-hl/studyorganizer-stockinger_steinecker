@@ -32,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             }
         }
     ?>
+
     <div class="row">
         <?php foreach ($openTasks as $task): ?>
 
