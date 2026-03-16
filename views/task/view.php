@@ -12,31 +12,49 @@ $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="task-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
-        <?php if ($model->isDone): ?>
-            <span class="btn btn-secondary btn-sm disabled"><?= Yii::t('app', 'Edit') ?></span>
-        <?php else: ?>
-            <?= Html::a(Yii::t('app', 'Edit'), ['update', 'taskId' => $model->taskId], ['class' => 'btn btn-primary btn-sm']) ?>
-        <?php endif; ?>
-        <?php if ($model->isDone): ?>
-            <span class="btn btn-success btn-sm disabled"><?= Yii::t('app', 'Done') ?></span>
-        <?php else: ?>
-            <?= Html::a(Yii::t('app', 'Done'), ['done', 'taskId' => $model->taskId], [
-                'class' => 'btn btn-success btn-sm',
-                'data' => [
-                    'confirm' => Yii::t('app', 'Mark this task as done?'),
-                    'method' => 'post',
-                ],
-            ]) ?>
-        <?php endif; ?>
     </p>
 
-    <div class="card">
+    <?php
+        $isDone = (bool)$model->isDone;
+        $dueDate = Yii::$app->formatter->asDate($model->taskDueDate, 'php:d.m.Y');
+        $teacherName = $model->taskTeacher ? $model->taskTeacher->teacherName : '-';
+        $subjectName = $model->taskSubject ? $model->taskSubject->subjectName : '-';
+        $ownerName = $model->taskOwner ? ($model->taskOwner->username ?? $model->taskOwner->email ?? '-') : '-';
+    ?>
+
+    <div class="card shadow-sm">
+        <div class="card-header d-flex align-items-center justify-content-between">
+            <div>
+                <h4 class="mb-0"><?= Html::encode($model->taskTitle) ?></h4>
+                <div class="text-muted small">Fällig am <?= Html::encode($dueDate) ?></div>
+            </div>
+            <span class="badge bg-<?= $isDone ? 'success' : 'warning' ?> text-uppercase">
+                <?= $isDone ? 'Erledigt' : 'Offen' ?>
+            </span>
+        </div>
         <div class="card-body">
-            <?= Html::encode($model->taskDescription) ?>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="text-muted small">Fach</div>
+                    <div class="fw-semibold"><?= Html::encode($subjectName) ?></div>
+                </div>
+                <div class="col-md-4">
+                    <div class="text-muted small">Lehrkraft</div>
+                    <div class="fw-semibold"><?= Html::encode($teacherName) ?></div>
+                </div>
+                <div class="col-md-4">
+                    <div class="text-muted small">Besitzer</div>
+                    <div class="fw-semibold"><?= Html::encode($ownerName) ?></div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <br>
+                <div class="text-muted small">Beschreibung</div>
+                <div class="border rounded p-3 bg-light">
+                    <?= nl2br(Html::encode($model->taskDescription)) ?>
+                </div>
+            </div>
         </div>
     </div>
 
