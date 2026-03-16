@@ -144,15 +144,23 @@ class SiteController extends Controller
 
     public function actionVerify()
     {
-        $model = new VerifyForm();
-        try {
-            if ($model->load(Yii::$app->request->post()) && $model->verify()) {
-                return $this->redirect(['task/index']);
-            }
-        } catch (\Exception $e) {
-            $newMessage = explode('The SQL being executed was:', $e->getMessage())[0];
-            Yii::$app->session->setFlash('error', $newMessage);
+        if (Yii::$app->user->isGuest || Yii::$app->user->identity->isVerified()) {
+            return $this->redirect(['task/index']);
         }
+
+        $model = new VerifyForm();
+        
+        $model->email = Yii::$app->user->identity->email;
+
+        if ($model->load(Yii::$app->request->post()) && $model->verify()) {
+            Yii::$app->session->setFlash('success', 'Your account has been successfully verified.');
+            return $this->redirect(['task/index']);
+        }
+
+        if (Yii::$app->request->isPost) {
+             Yii::$app->session->setFlash('error', 'Invalid verification code.');
+        }
+
         return $this->render('verify', ['verModel' => $model]);
     }
 }

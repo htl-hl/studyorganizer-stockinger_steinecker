@@ -35,15 +35,15 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <div class="card-body">
             <div class="row g-3">
-                <div class="col-md-4">
+                <div class="col-md-4 text-center">
                     <div class="text-muted small">Fach</div>
                     <div class="fw-semibold"><?= Html::encode($subjectName) ?></div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 text-center">
                     <div class="text-muted small">Lehrkraft</div>
                     <div class="fw-semibold"><?= Html::encode($teacherName) ?></div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 text-center">
                     <div class="text-muted small">Besitzer</div>
                     <div class="fw-semibold"><?= Html::encode($ownerName) ?></div>
                 </div>
